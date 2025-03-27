@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            gap: 20px;
+        }
+        .sidebar, .main-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .main-content {
+            flex: 2;
+            text-align: center;
+        }
+        .auto-payment button, .self-transfer button, .profile button, .logout button {
+            background: #4F46E5;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile">
+                <h3>User Profile</h3>
+                <p>Name: John Doe</p>
+                <p>Email: john.doe@example.com</p>
+                <button onclick="window.location.href='profile.html'">View Profile</button>
+            </div>
+            <div class="tips">
+                <h3>Financial Tips</h3>
+                <ul>
+                    <li>Save at least 20% of your income.</li>
+                    <li>Track expenses weekly.</li>
+                    <li>Set up automatic savings transfers.</li>
+                </ul>
+            </div>
+            <div class="auto-payment">
+                <h3>Auto Payment</h3>
+                <p>Enable automatic payments for loans and bills.</p>
+                <h4>Loan Payments</h4>
+                <ul>
+                    <li><input type="checkbox"> Car Loan - $300/month</li>
+                    <li><input type="checkbox"> House Loan - $800/month</li>
+                </ul>
+                <h4>Insurance Policies</h4>
+                <ul>
+                    <li><input type="checkbox"> Health Insurance - $150/month</li>
+                    <li><input type="checkbox"> Life Insurance - $100/month</li>
+                </ul>
+                <button>Enable Auto-Pay</button>
+            </div>
+            <div class="self-transfer">
+                <h3>Self Transfer to Savings</h3>
+                <p>Transfer a portion of your salary to your secondary bank account.</p>
+                <input type="number" placeholder="Enter amount" min="0">
+                <button>Transfer Now</button>
+            </div>
+            <div class="logout">
+                <button onclick="window.location.href='loginpage.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Financial Overview</h2>
+            <canvas id="financeChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('financeChart').getContext('2d');
+        const financeChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Loans', 'Savings', 'Expenses', 'Remaining Salary'],
+                datasets: [{
+                    data: [5000, 7000, 6000, 2000],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
