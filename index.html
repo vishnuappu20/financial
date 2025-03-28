@@ -10,56 +10,71 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(to right, #0F172A, #1E293B);
+            background: linear-gradient(135deg, #0F172A, #1E293B);
             color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            position: relative;
+        }
+        .settings-menu {
+            position: relative;
+            display: inline-block;
+        }
+        .settings-button {
+            background: transparent;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .dropdown-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .settings-menu:hover .dropdown-menu {
+            display: block;
         }
         .container {
             display: flex;
             max-width: 1200px;
             width: 100%;
             gap: 20px;
+            position: relative;
+            z-index: 1;
         }
-        .sidebar, .main-content, .right-sidebar {
+        .sidebar, .right-sidebar {
+            flex: 1;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-            transition: 0.3s ease-in-out;
-        }
-        .sidebar:hover, .main-content:hover, .right-sidebar:hover {
-            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
-        }
-        .sidebar {
-            flex: 1;
-            height: 300px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .tips-container {
-            height: 220px;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-        .tips {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            width: 100%;
-            animation: scrollTips 8s linear infinite;
-        }
-        @keyframes scrollTips {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(-100%); }
+            text-align: center;
         }
         .main-content {
             flex: 2;
@@ -68,14 +83,45 @@
             border-radius: 15px;
             padding: 30px;
         }
-        .right-sidebar {
-            flex: 1;
+        .chart-container {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
-        .button {
+        canvas {
+            max-width: 400px;
+            max-height: 400px;
+        }
+        .features {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        .features li {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 5px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .features li:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .support-section {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .support-button {
             background: #22C55E;
             color: white;
             border: none;
@@ -86,57 +132,61 @@
             font-weight: bold;
             transition: 0.3s ease;
         }
-        .button:hover {
+        .support-button:hover {
             background: #16A34A;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Left Sidebar for Animated Tips -->
-        <div class="sidebar">
-            <h3>💡 Financial Tips</h3>
-            <div class="tips-container">
-                <div class="tips">
-                    <p>✅ Save at least 20% of your income.</p>
-                    <p>📊 Track expenses weekly.</p>
-                    <p>💰 Set up automatic savings transfers.</p>
-                    <p>📈 Invest wisely for long-term gains.</p>
-                    <p>📉 Reduce unnecessary subscriptions.</p>
-                    <p>🔄 Reevaluate your budget monthly.</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="main-content">
-            <h2>📊 Finlytic - Financial Overview</h2>
-            <canvas id="financeChart"></canvas>
-        </div>
-        
-        <!-- Right Sidebar for User Info and Payments -->
-        <div class="right-sidebar">
-            <div class="profile">
-                <h3>👤 User Profile</h3>
-                <p>Name: John Doe</p>
-                <p>Email: john.doe@example.com</p>
-                <button class="button" onclick="window.location.href='profile.html'">View Profile</button>
-            </div>
-            <div class="auto-payment">
-                <h3>💳 Auto Payment</h3>
-                <p>Enable automatic payments for loans and bills.</p>
-                <button class="button">Enable Auto-Pay</button>
-            </div>
-            <div class="logout">
-                <button class="button" onclick="window.location.href='loginpage.html'">Logout</button>
+
+    <div class="header">
+        <div class="settings-menu">
+            <button class="settings-button">⚙️ Settings</button>
+            <div class="dropdown-menu">
+                <a href="profile.html">👤 View Profile</a>
+                <a href="loginpage.html">🚪 Logout</a>
             </div>
         </div>
     </div>
 
+    <div class="container">
+        <div class="sidebar">
+            <h3>💡 Financial Tips</h3>
+            <p>✅ Save at least 20% of your income.</p>
+            <p>📊 Track expenses weekly.</p>
+            <p>💰 Set up automatic savings transfers.</p>
+            <p>📈 Invest wisely for long-term gains.</p>
+            <p>📉 Reduce unnecessary subscriptions.</p>
+            <p>🔄 Reevaluate your budget monthly.</p>
+        </div>
+        <div class="main-content">
+            <h2>📊 Finlytic - Financial Overview</h2>
+            <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+        <div class="right-sidebar features">
+            <h3>🔹 Features</h3>
+            <ul>
+                <li onclick="alert('Generating Monthly Summary Report...')">📅 Monthly Summary Reports</li>
+                <li onclick="alert('Setting up Bill Payment Reminders...')">🔔 Bill Payment Reminders</li>
+                <li onclick="window.location.href='calu.html'">💳 Loan & EMI Calculator</li>
+                <li onclick="window.location.href='currecycon.html'">🔄 Currency Converter</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="support-section">
+        <h2>Need Help? 24x7 Support Available</h2>
+        <p>Our support team is available 24/7 to assist you with any queries. Click below to contact us.</p>
+        <button class="support-button" onclick="alert('Connecting to support...')">📞 Contact Support</button>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('financeChart').getContext('2d');
-        const financeChart = new Chart(ctx, {
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
             type: 'pie',
             data: {
                 labels: ['Loans', 'Savings', 'Expenses', 'Remaining Salary'],
@@ -147,15 +197,19 @@
             }
         });
 
-        // JavaScript-based dynamic scrolling
-        function scrollTips() {
-            const tips = document.querySelector('.tips');
-            const clonedTips = tips.cloneNode(true);
-            document.querySelector('.tips-container').appendChild(clonedTips);
-            tips.style.animation = "scrollTips 8s linear infinite";
-        }
-
-        window.onload = scrollTips;
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May'],
+                datasets: [{
+                    label: 'Savings Over Time',
+                    data: [2000, 3000, 2500, 4000, 4500],
+                    backgroundColor: '#36A2EB'
+                }]
+            }
+        });
     </script>
+
 </body>
 </html>
