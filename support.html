@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+        .button {
+            background: #22C55E;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            display: block;
+            width: 100%;
+            transition: 0.3s ease;
+        }
+        .button:hover {
+            background: #16A34A;
+        }
+        form {
+            display: none;
+            margin-top: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Contact Support</h2>
+        <p>Select how you want to get support:</p>
+        
+        <button class="button" onclick="location.href='ai-support.html'">🤖 AI Support</button>
+        <button class="button" onclick="showForm()">📞 Human Support</button>
+
+        <form id="supportForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <textarea id="issue" placeholder="Describe your issue" rows="4" required></textarea>
+            <button type="button" class="button" onclick="submitForm()">Submit</button>
+        </form>
+
+        <p id="confirmationMessage" class="hidden">✅ You will be contacted within 1 hour.</p>
+    </div>
+
+    <script>
+        function showForm() {
+            document.getElementById("supportForm").style.display = "block";
+        }
+
+        function submitForm() {
+            document.getElementById("supportForm").reset();
+            document.getElementById("supportForm").style.display = "none";
+            document.getElementById("confirmationMessage").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>

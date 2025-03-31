@@ -26,6 +26,20 @@
             padding: 10px 20px;
             position: relative;
         }
+        .logo {
+            position: absolute;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo span {
+            font-size: 14px;
+            font-weight: 300;
+            color: #D1D5DB;
+        }
         .settings-menu {
             position: relative;
             display: inline-block;
@@ -140,6 +154,9 @@
 <body>
 
     <div class="header">
+        <div class="logo">
+            Finlytic <span>- Your Financial Companion</span>
+        </div>
         <div class="settings-menu">
             <button class="settings-button">⚙️ Settings</button>
             <div class="dropdown-menu">
@@ -169,8 +186,8 @@
         <div class="right-sidebar features">
             <h3>🔹 Features</h3>
             <ul>
-                <li onclick="alert('Generating Monthly Summary Report...')">📅 Monthly Summary Reports</li>
-                <li onclick="alert('Setting up Bill Payment Reminders...')">🔔 Bill Payment Reminders</li>
+                <li onclick="window.location.href='monthly.html'">📅 Monthly Summary Reports</li>
+                <li onclick="window.location.href='bill.html'">🔔 Bill Payment Reminders</li>
                 <li onclick="window.location.href='calu.html'">💳 Loan & EMI Calculator</li>
                 <li onclick="window.location.href='currecycon.html'">🔄 Currency Converter</li>
             </ul>
@@ -180,7 +197,7 @@
     <div class="support-section">
         <h2>Need Help? 24x7 Support Available</h2>
         <p>Our support team is available 24/7 to assist you with any queries. Click below to contact us.</p>
-        <button class="support-button" onclick="alert('Connecting to support...')">📞 Contact Support</button>
+        <button class="support-button" onclick="window.location.href='support.html'">📞 Contact Support</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

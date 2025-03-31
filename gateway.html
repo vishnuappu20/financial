@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment Gateway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .payment-container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h2 { color: #333; }
+        .amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1A73E8;
+            margin-bottom: 15px;
+        }
+        .payment-methods button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+        .card-payment { background: #1A73E8; color: white; }
+        .upi-payment { background: #34D399; color: white; }
+        .net-banking { background: #FB923C; color: white; }
+        .input-container {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        .pay-now {
+            display: none;
+            background: #22C55E;
+            color: white;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1A73E8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-container">
+        <h2>🔒 Secure Payment</h2>
+        <p><strong>Bill:</strong> <span id="billType"></span></p>
+        <p class="amount">$<span id="billAmount"></span></p>
+
+        <div class="payment-methods">
+            <button class="card-payment" onclick="showPaymentForm('card')">💳 Pay with Card</button>
+            <button class="upi-payment" onclick="showPaymentForm('upi')">📲 Pay with UPI</button>
+            <button class="net-banking" onclick="showPaymentForm('bank')">🏦 Net Banking</button>
+        </div>
+
+        <div class="input-container" id="paymentForm">
+            <div id="cardDetails" class="payment-inputs">
+                <input type="text" placeholder="Card Number" maxlength="16">
+                <input type="text" placeholder="MM/YY" maxlength="5">
+                <input type="text" placeholder="CVV" maxlength="3">
+            </div>
+
+            <div id="upiDetails" class="payment-inputs">
+                <input type="text" placeholder="Enter UPI ID">
+            </div>
+
+            <div id="bankDetails" class="payment-inputs">
+                <select>
+                    <option>Select Your Bank</option>
+                    <option>State Bank of India</option>
+                    <option>HDFC Bank</option>
+                    <option>ICICI Bank</option>
+                    <option>Axis Bank</option>
+                </select>
+            </div>
+
+            <button class="pay-now" onclick="processPayment()">✅ Pay Now</button>
+        </div>
+
+        <p class="loading" id="loadingText">Processing Payment...</p>
+    </div>
+
+    <script>
+        const bill = new URLSearchParams(window.location.search).get('bill') || "Unknown";
+        const amount = new URLSearchParams(window.location.search).get('amount') || "0";
+        document.getElementById("billType").textContent = bill;
+        document.getElementById("billAmount").textContent = amount;
+
+        function showPaymentForm(method) {
+            document.querySelectorAll('.payment-inputs').forEach(div => div.style.display = "none");
+            document.getElementById("paymentForm").style.display = "flex";
+            document.querySelector(".pay-now").style.display = "block";
+
+            if (method === "card") {
+                document.getElementById("cardDetails").style.display = "flex";
+            } else if (method === "upi") {
+                document.getElementById("upiDetails").style.display = "flex";
+            } else if (method === "bank") {
+                document.getElementById("bankDetails").style.display = "flex";
+            }
+        }
+
+        function processPayment() {
+            document.getElementById("loadingText").style.display = "block";
+            setTimeout(() => {
+                alert(`Payment of $${amount} successful!`);
+                window.location.href = "bill_payments.html";
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
